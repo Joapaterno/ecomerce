@@ -1,10 +1,19 @@
 import "./item.css";
 import React from "react";
 import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { addToCart } from "../../redux/CartSlide";
+
+
 
 const ItemDetail = ({ producto }) => {
   const [contador, setContador] = useState(1);
   const [stock, setStock] = useState(20);
+
+  const { cartItems } = useSelector((state) => state.cart);
+
+  const dispatch = useDispatch();
+
 
   useEffect(() => {
     stock === 0 && setContador(0);
@@ -16,7 +25,27 @@ const ItemDetail = ({ producto }) => {
     contador > 1 && setContador(contador - 1);
   };
 
+  const agregar = () => {
+
+    const productorconcontadcor = {...producto, contador: contador}
+
+    dispatch(addToCart(productorconcontadcor));
+  }
+
+
   return (
+
+    
+
+    useEffect(() => {
+      console.log(cartItems);
+    }, [cartItems]),
+
+
+
+
+
+
     <div className="item-card">
       <div className="item-image-container">
         <img className="item-image" src={producto.image} alt={producto.title} />
@@ -30,7 +59,9 @@ const ItemDetail = ({ producto }) => {
         <p>{contador}</p>
         <button onClick={aumentar}>+</button>
       </div>
-      <button>agregar al carrito</button>
+      
+        <button onClick={agregar}  >agregar al carrito</button>
+      
     </div>
   );
 };
