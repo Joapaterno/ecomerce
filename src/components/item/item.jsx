@@ -5,15 +5,23 @@ import style from "./item.css";
 
 const ItemCard = ({ producto }) => {
   return (
-    <div className={style.itemcard}>
-      <div className="item-image-container">
-        <img className="item-image" src={producto.image} alt={producto.title} />
+
+    <div className="w-[300px] flex flex-col gap-2 items-center justify-center border border-solid border-b-lime-400 border-2 rounded-lg">
+
+      <div className="item-image-container ">
+        <img className="w-[200px]" src={producto.image} alt={producto.title} />
       </div>
+
       <h3>{producto.title}</h3>
+
       <p>USD {producto.price}</p>
+
       <Link to={`/item/${producto.id}`} className="custom-link">
-        Ver Producto
+        <button className="bg-green-400 px-2 rounded-md text-xl" >
+          Ver Producto
+        </button>
       </Link>
+
     </div>
   );
 };

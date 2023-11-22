@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ItemDetail from "../item/itemDetail";
+import { db } from "../../firebase/client";
+import { collection, addDoc, getDocs } from "firebase/firestore";
 
 const ItemDetailContainer = () => {
   const { id } = useParams();
@@ -8,24 +10,33 @@ const ItemDetailContainer = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  
   useEffect(() => {
-    fetch(`https://fakestoreapi.com/products/${id}`)
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("No se pudo cargar el producto");
-        }
-        return res.json();
-      })
-      .then((json) => {
-        setProducto(json);
-      })
-      .catch((err) => {
-        setError(err.message);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, [id]);
+
+    
+      const fetchData = async () => {
+        const data = await getDocs(collection(db, "products"));   
+        
+        
+        data.forEach((doc) => {
+          
+          let p = doc.data()
+          
+          let pid = p.id
+          
+          if(pid == id){            
+            setProducto(p)
+            console.log(producto)
+            setLoading(false)  
+          }
+        });
+      } 
+      
+      fetchData();   
+    
+
+  }, []);
+  
 
   if (loading) {
     return <p>Cargando producto...</p>;
@@ -36,9 +47,13 @@ const ItemDetailContainer = () => {
   }
 
   return (
-    <>
+    <div className="flex items-center justify-center h-screen bg-green-800 ">      
+      
+      {console.log(producto)}
+
       <ItemDetail producto={producto} />
-    </>
+
+    </div>
   );
 };
 

@@ -14,7 +14,7 @@ const categorias = [
 
 const Navbarjsx = () => (
   
-  <Navbar expand="lg" className="bg-custom my-navbar">
+  <Navbar expand="lg" className="bg-custom my-navbar bg-indigo-400 text-white pr-8">
     <Container>
       <Navbar.Brand as={Link} to="/">
         VIP Ecommerce
