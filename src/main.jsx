@@ -1,14 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App.jsx';
-import './index.css';
-import { CartContextProvider } from './components/Contexto/CartContext.jsx';
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App.jsx'
+import './index.css'
+import { useCart } from './components/Contexto/CartContext.jsx'
+import { CartContextProvider } from './components/Contexto/CartContext.jsx'
+import  ShopComponentContext  from './components/shopContext/shopContext.jsx'
 
-ReactDOM.render(
+
+ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <CartContextProvider>
+    <ShopComponentContext>
       <App />
-    </CartContextProvider>    
+    </ShopComponentContext>    
   </React.StrictMode>,
-  document.getElementById('root')
-);
+)
