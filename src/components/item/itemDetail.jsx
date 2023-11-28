@@ -5,13 +5,16 @@ import { useShopContext } from "../shopContext/shopContext";
 import Link from "antd/es/typography/Link";
 import { db } from "../../firebase/client";
 import { updateDoc, doc } from "firebase/firestore";
-
+import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const ItemDetail = ({ producto }) => {
   const [contador, setContador] = useState(1);
   const [stock, setStock] = useState(20);
 
   const { addItem, cart, removeProduct, numProducts, setNumProducts } = useShopContext();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     stock === 0 && setContador(0);
@@ -36,15 +39,17 @@ const ItemDetail = ({ producto }) => {
     addItem(newProduct)
   }
 
+
+
   return (
     <div className="item-card font-bold rounded-xl w-[700px] h-fit p-10 overflow-x-hidden flex flex-col items-center gap-2 bg-green-300 relative">
 
       <div className="absolute top-7 right-5 z-10" >
-        <Link to={`/`}>
-        <button className="px-2 py-1 font-bold rounded-md border border-soli " >
+        
+        <button onClick={()=> navigate("/products")} className="px-2 py-1 font-bold rounded-md border border-soli " >
           <h4 className="text-2xl" >Regresar</h4>
         </button>
-        </Link>          
+        
       </div>
 
 
